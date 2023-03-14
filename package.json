@@ -1,15 +1,14 @@
 {
-  "name": "jsonrepair",
-  "version": "3.0.2",
+  "name": "modifiedjsonrepair",
+  "version": "3.0.3",
   "description": "Repair broken JSON documents",
   "repository": {
     "type": "git",
-    "url": "https://github.com/josdejong/jsonrepair.git"
+    "url": "https://github.com/foyer-work/modifiedjsonrepair.git"
   },
   "type": "module",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
-  "browser": "lib/umd/index.min.js",
   "types": "lib/types/index.d.ts",
   "sideEffects": false,
   "exports": {
@@ -27,7 +26,7 @@
     "invalid"
   ],
   "bin": {
-    "jsonrepair": "./bin/cli.js"
+    "modifiedjsonrepair": "./bin/cli.js"
   },
   "scripts": {
     "test": "mocha",
@@ -36,9 +35,6 @@
     "build:clean": "del-cli lib",
     "build:esm": "babel src --out-dir lib/esm --extensions \".ts\" --source-maps --config-file ./babel.config.json",
     "build:cjs": "babel src --out-dir lib/cjs --extensions \".ts\" --source-maps --config-file ./babel-cjs.config.json && cpy tools/cjs lib/cjs --flat",
-    "build:umd": "rollup lib/esm/index.js --format umd --name JSONRepair --sourcemap --output.file lib/umd/jsonrepair.js && cpy tools/cjs/package.json lib/umd --flat",
-    "build:umd:min": "uglifyjs --compress --mangle --source-map --comments --output lib/umd/jsonrepair.min.js -- lib/umd/jsonrepair.js",
-    "build:types": "tsc --project tsconfig-types.json",
     "lint": "eslint src/**/*.ts",
     "format": "npm run lint -- --fix",
     "benchmark": "npm run build:esm && node tools/benchmark/run.mjs",
@@ -49,7 +45,7 @@
     "release:push": "git push && git push --tag",
     "release:publish": "npm publish",
     "release-dry-run": "npm run build-and-test && standard-version --dry-run",
-    "prepare": "husky install"
+    "prepare": "npm run build"
   },
   "files": [
     "README.md",
